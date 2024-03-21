@@ -11,6 +11,11 @@ package com.themusketeers.jps;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+/**
+ * Unit tests for Application class.
+ *
+ * @author COQ - Carlos Adolfo Ortiz Q.
+ */
 @SpringBootTest
 class ApplicationTests {
 
