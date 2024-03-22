@@ -120,14 +120,14 @@ If you are in *Windows* machine, you must run the latter command inside the inst
 
 == References
 
-== Spring Native
+=== Spring Native
 
 * https://www.baeldung.com/spring-6-ahead-of-time-optimizations[Ahead of Time Optimizations in Spring 6^]
 * https://www.baeldung.com/spring-native-intro[Native Images with Spring Boot and GraalVM^]
 * https://spring.io/blog/2023/09/09/all-together-now-spring-boot-3-2-graalvm-native-images-java-21-and-virtual[All together now: Spring Boot 3.2, GraalVM native images, Java 21, and virtual threads with Project Loom^]
 * https://medium.com/ekino-france/native-image-with-spring-boot-70f32788528c[Native Image with Spring Boot^]
 
-== GraalVM
+=== GraalVM
 
 * https://www.graalvm.org/latest/docs/getting-started/windows/[Installation on Windows Platforms^]
 * https://www.graalvm.org/downloads/[GraalVM Downloads]
