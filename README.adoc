@@ -7,7 +7,7 @@ The purpose of this demo application is to showcase different ways to build the 
 
 This application is a non-reactive, it uses *Spring MVC* module.
 
-[ALERT]
+[CAUTION]
 ====
 The application uses a custom made *Spring Boot Starter*
 
