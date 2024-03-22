@@ -38,7 +38,7 @@ listed here).
 [%header,cols="10%, 20%, 70%"]
 |===
 ||Component|Version
-|1|JDK|21 (somehow, it is now prepared to work with JDK 17, testing required).
+|1|JDK|21
 |2|Spring Boot|3.2.3
 |===
 
