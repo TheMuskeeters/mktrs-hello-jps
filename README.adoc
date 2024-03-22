@@ -132,6 +132,7 @@ If you are in *Windows* machine, you must run the latter command inside the inst
 * https://www.graalvm.org/latest/docs/getting-started/windows/[Installation on Windows Platforms^]
 * https://www.graalvm.org/downloads/[GraalVM Downloads]
 * https://github.com/graalvm[GraalVM on Github^]
+* https://www.youtube.com/watch?v=FjRBHKUP-NA[Getting started with Spring Boot AOT + GraalVM Native Images^]
 
 === Code Coverage
 * https://medium.com/@truongbui95/jacoco-code-coverage-with-spring-boot-835af8debc68[JaCoCo Code Coverage with Spring Boot^]
