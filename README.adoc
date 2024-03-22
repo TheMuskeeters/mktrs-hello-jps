@@ -2,17 +2,51 @@
 
 V2024.1.0
 
-Running with JVM, when starting the application, *Spring* creates the context and uses a lot of memory because it has to scan the packages and build every class.
-$ mvn spring-boot:run --> Started Application in 1.913 seconds (process running for 2.346)
+The purpose of this demo application is to showcase different ways to build the deployment artifact with the most recent
+*Spring Boot* developments to improve memory/load metrics.
 
-Running in JVM with AOT it allows the *Spring* creates the context by
+This application is a non-reactive, it uses *Spring MVC* module.
+
+[ALERT]
+====
+The application uses a custom made *Spring Boot Starter*
+
+[source,xml]
+----
+<dependency>
+    <groupId>com.themusketeers</groupId>
+    <artifactId>mktrs-jps-spring-boot-starter</artifactId>
+    <version>${mktrs-spring-boot-starter.version}</version>
+</dependency>
+
+This is not available in *Maven Central* but you can find the source code at https://github.com/TheMuskeeters/mktrs-jps-spring-boot-starter[mktrs-jps-spring-boot-starter]
+and install it in the *Local Maven Repository*.
+====
+
+== Run with JVM
+Running with JVM, when starting the application, *Spring* creates the context and uses a lot of memory because it has to scan the packages.
+
+When you run in this mode using the following command.
+
+[source,bash]
+----
+$ mvn spring-boot:run 
+----
+
+It shows that the Application started in 1.913 seconds (process running for 2.346), these values may vary on the target machine configuration.
+
+== JVM with AOT
+There is another technique that involves the usage of *_AOT_* which allows to prepare the *_Spring Context_* at compile time, thus speeding up the load time.
+
+Use the following commands
 
 [source,bash]
 ----
 $ mvn clean compile spring-boot:process-aot package
 $ java -Dspring.aot.enabled=true -jar <jar-name>
-  --> 3.112 seconds (process running for 3.719) mmmm this should be lower that JVM ... ?????
 ----
+
+Notice that the application startup time is 3.112 seconds (process running for 3.719).
 
 Somehow, if you want to always generate the AOT by default, add the following element to the *Spring Maven Plugin* to the *_executions_* node.
 
@@ -24,26 +58,26 @@ Somehow, if you want to always generate the AOT by default, add the following el
         <goal>process-aot</goal>
     </goals>
 </execution>
-
 ---- 
 
-and use a single command instead.
+and use a single command instead as follows
 
 [source,bash]
 ----
 $ mvn clean -Dspring.aot.enabled=true spring-boot:run 
 ----
 
-This will run in the JVM but uses the AOT compiled code to decrease start up time
+This will run in the JVM but uses the AOT compiled code to decrease start up time.
 
-Running using GraalVM (by generating this as native OS native image)
+== GraalVM
+An emerging recent year technique is the generation of the application to use the binary format of the target operating system. Using this technique
+allows the application to start up in a fraction of a second.
 
 [source,bash]
 ----
 $ mvn clean package -Pnative
 $ mvn clean package -Pnative,nativeTest<1>
 ----
-
 <1> Check if Mockito can be used in Native Tests as of now.
 NOTE: The _nativeTest_ requires the Docker Image builder.
 
@@ -55,16 +89,15 @@ $ mvn clean spring-boot:build-image -Pnative
 $ docker run --rm -p 8080:8080 [image-name]:[version]
 ----
 
-To build a native image locally
+To build a native image locally 
 
 [source,bash]
 ----
 $ mvn clean -Pnative native:compile <1>
 ----
-
 <1> Requires GraalVM installed in your local machine.
 
-If you are in Windows machine, you must run the latter command inside the installed terminal named "x64 Native Tools Command Prompt".
+If you are in *Windows* machine, you must run the latter command inside the installed terminal named "x64 Native Tools Command Prompt".
 
 == References
 
