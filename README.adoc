@@ -29,6 +29,19 @@ and install it in the *Local Maven Repository*.
 
 toc::[]
 
+== Dependency Libraries
+
+The following table indicates the tracked components needed for this project (notice that many of them may be not
+listed here).
+
+.Components
+[%header,cols="10%, 20%, 70%"]
+|===
+||Component|Version
+|1|JDK|21 (somehow, it is now prepared to work with JDK 17, testing required).
+|2|Spring Boot|3.2.3
+|===
+
 == Run with JVM
 Running with JVM, when starting the application, *Spring* creates the context and uses a lot of memory because it has to scan the packages.
 
