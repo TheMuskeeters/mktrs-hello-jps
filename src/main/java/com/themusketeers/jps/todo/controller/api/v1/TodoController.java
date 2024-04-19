@@ -50,7 +50,7 @@ public class TodoController {
     /**
      * Find a {@link Todo} record using an 'id'. If record is not found an HTTP 400 is returned (see
      *
-     * @param id
+     * @param id Indicates the identifier we want to locate.
      * @return The requested information.
      */
     @GetMapping("{id}")
