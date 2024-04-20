@@ -7,23 +7,32 @@
 V2024.1.0
 
 The purpose of this demo application is to showcase different ways to build the deployment artifact with the most recent
-*Spring Boot* developments to improve memory/load metrics.
+*Spring Boot* development tooling to improve memory/load metrics.
 
 This application is a non-reactive, it uses *Spring MVC* module.
 
 [CAUTION]
 ====
-The application uses a custom made *Spring Boot Starter*
+The application uses a custom-made *Spring Boot Starter*
+
+[source,xml]
+----
+<properties>
+    <mktrs-jps-spring-boot-starter.version>2024.1.0</mktrs-jps-spring-boot-starter.version>
+</properties><1>
+----
+<1> Define the version number for the starter.
 
 [source,xml]
 ----
 <dependency>
     <groupId>com.themusketeers</groupId>
     <artifactId>mktrs-jps-spring-boot-starter</artifactId>
-    <version>${mktrs-spring-boot-starter.version}</version>
+    <version>${mktrs-jps-spring-boot-starter.version}</version>
 </dependency>
+----
 
-This is not available in *Maven Central* but you can find the source code at https://github.com/TheMuskeeters/mktrs-jps-spring-boot-starter[mktrs-jps-spring-boot-starter]
+This is not available in *Maven Central*, but you can find the source code at https://github.com/TheMuskeeters/mktrs-jps-spring-boot-starter[mktrs-jps-spring-boot-starter]
 and install it in the *Local Maven Repository*.
 ====
 
