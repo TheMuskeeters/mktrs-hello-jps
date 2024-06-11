@@ -9,7 +9,7 @@
 package com.themusketeers.jps.todo.controller.api.v1;
 
 import com.themusketeers.jps.todo.JPSTodoClient;
-import com.themusketeers.jps.todo.Todo;
+import com.themusketeers.jps.todo.model.Todo;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
