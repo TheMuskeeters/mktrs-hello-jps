@@ -4,7 +4,7 @@
 
 = mktrs-hello-jps
 
-V2024.1.0
+V2025.1.0
 
 The purpose of this demo application is to showcase different ways to build the deployment artifact with the most recent
 *Spring Boot* development tooling to improve memory/load metrics.
@@ -48,7 +48,7 @@ listed here).
 |===
 ||Component|Version
 |1|JDK|21
-|2|Spring Boot|3.2.3
+|2|Spring Boot|3.4.1
 |===
 
 == Run with JVM
