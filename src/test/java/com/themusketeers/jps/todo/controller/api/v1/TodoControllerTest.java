@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------*/
-/* Source File:   TODOCONTROLLER.JAVA                                         */
+/* Source File:   TODOCONTROLLERTEST.JAVA                                     */
 /* Copyright (c), 2024 The Musketeers                                         */
 /*----------------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------------
@@ -11,56 +11,29 @@ package com.themusketeers.jps.todo.controller.api.v1;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-import com.themusketeers.jps.todo.JPSTodoClient;
+import com.themusketeers.jps.common.config.JsonPlaceholderServiceAutoConfiguration;
 import com.themusketeers.jps.todo.model.Todo;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.cassandra.AutoConfigureDataCassandra;
+import org.springframework.boot.autoconfigure.web.client.RestClientAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.web.client.RestClient;
 
 @WebMvcTest(TodoController.class)
-//@ImportAutoConfiguration
-//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-
+@Import({RestClientAutoConfiguration.class, JsonPlaceholderServiceAutoConfiguration.class})
 class TodoControllerTest {
     public static final String TODO_CONTROLLER_BASE_PATH = "/api/v1/todos";
+    public static final String TODO_CONTROLLER_BASE_PATH_ID = "/api/v1/todos/{id}";
+
+    private static final int TODO_LIST_EXPECTED_SIZE = 200;
+    private static final int TODO_ID = 200;
 
     @Autowired
     private WebTestClient client;
-
-    /*@BeforeEach
-    void beforeEach(@Autowired MockMvc mockMvc) {
-        this.client = MockMvcWebTestClient
-            .bindTo(mockMvc)
-            .build();
-    }*/
-    //@BeforeEach
-    //void beforeEach() {
-    //   this.client = WebTestClient.bindToController(TodoController.class).build();
-    // }
-
-    @TestConfiguration
-    static class TestConfig {
-        @Bean
-        public JPSTodoClient jpsTodoClient(RestClient restClient) {
-            return new JPSTodoClient(restClient);
-        }
-
-        @Bean("jsonPlaceholderRestClient")
-        public RestClient restClient(RestClient.Builder builder) {
-            return builder
-                .baseUrl("https://jsonplaceholder.typicode.com")
-                .build();
-        }
-    }
 
     @Test
     @DisplayName("Should Retrieve TODO List")
@@ -75,7 +48,36 @@ class TodoControllerTest {
             .consumeWith(response -> {
                 var resBody = response.getResponseBody();
 
-                assertThat(resBody).isNotNull().isNotEmpty().hasSize(200);
+                assertThat(resBody)
+                    .isNotNull()
+                    .isNotEmpty()
+                    .hasSize(TODO_LIST_EXPECTED_SIZE);
             });
     }
+
+    @Test
+    @DisplayName("Should Retrieve a TODO by ID")
+    void shouldRetrieveTODOById() {
+        var expectedTodo = buildTodo();
+
+        client.get()
+            .uri(TODO_CONTROLLER_BASE_PATH_ID, TODO_ID)
+            .accept(MediaType.APPLICATION_JSON)
+            .header(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_VALUE)
+            .exchange()
+            .expectStatus().isOk()
+            .expectBody(Todo.class)
+            .consumeWith(response -> {
+                var resBody = response.getResponseBody();
+
+                assertThat(resBody)
+                    .isNotNull()
+                    .isEqualTo(expectedTodo);
+            });
+    }
+
+    private Todo buildTodo() {
+        return new Todo(10, 200, "ipsam aperiam voluptates qui", false);
+    }
+
 }

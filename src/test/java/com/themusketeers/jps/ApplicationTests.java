@@ -9,6 +9,9 @@
 package com.themusketeers.jps;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.web.reactive.WebFluxAutoConfiguration;
+import org.springframework.boot.autoconfigure.web.reactive.function.client.WebClientAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
@@ -17,6 +20,10 @@ import org.springframework.boot.test.context.SpringBootTest;
  * @author COQ - Carlos Adolfo Ortiz Q.
  */
 @SpringBootTest
+@EnableAutoConfiguration(exclude = {
+    WebFluxAutoConfiguration.class,
+    WebClientAutoConfiguration.class
+})
 class ApplicationTests {
 
     @Test
